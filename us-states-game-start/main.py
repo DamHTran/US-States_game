@@ -18,20 +18,21 @@ screen.tracer(0)
 # Import data
 data = pandas.read_csv("50_states.csv")
 # check match answer and write state
-while True:
+point = 0
+while point < 50:
     screen.update()
-    answer = screen.textinput(title="Guess the State", prompt="What's another state's name?")
+    answer = screen.textinput(title=f"{point}/50 States Correct", prompt="What's another state's name?")
     answer = answer.title()
-    clock = Clock()
-    clock.countdown()
     if answer in data["state"].unique():
         index = data[data["state"] == answer].index
         print(index)
         pen.goto(int(data["x"][index]), int(data["y"][index]))
         pen.write(answer)
-    else:
-        print("no")
+        point += 1
+    elif answer == "Quit":
         break
+    else:
+        print("This is not a state")
 
 
 
